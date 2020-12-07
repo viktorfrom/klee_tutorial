@@ -79,10 +79,10 @@ int main()
 // Depending on shell this might look different:
 //
 // Under `bash` (and `bash` like shells)
-// > export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+// > export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 //
 // Under `fish`
-// > set -x LD_LIBRARY_PATH /usr/local/lib/
+// > set -x LD_LIBRARY_PATH /usr/local/lib/:$LD_LIBRARY_PATH
 //
 // > KTEST_FILE=klee-last/test000001.ktest ./a.out
 //
