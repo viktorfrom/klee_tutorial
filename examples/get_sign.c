@@ -73,30 +73,48 @@ int main()
 // > clang -I /usr/local/include/ -L /usr/local/lib get_sign.c -l kleeRuntest
 //
 // To replay the first test:
+//
+// We need to add the libary path so it can be dynamically loaded:
+// Depending on shell this might look different:
+//
+// Under `bash` (and `bash` like shells)
+// > export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+//
+// Under `fish`
+// > set -x LD_LIBRARY_PATH /usr/local/lib/
+//
 // > KTEST_FILE=klee-last/test000001.ktest ./a.out
+//
+// Now let's inspect the status (return code), in `bash`:
+// $? is the return value (error code) as seen by the shell.
+//
 // > echo $?
 //
-// $? is the return value (error code) as seen by the shell.
+// In `fish` you would do
+//
+// > echo $status
 //
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
 //
 // > KTEST_FILE=klee-last/test000002.ktest ./a.out
-// > echo $?
+//
+// Inspect the return code:
 //
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
 //
 // > KTEST_FILE=klee-last/test000003.ktest ./a.out
-// > echo $?
+//
+// Inspect the return code:
 //
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
 //
-// Why not? Confir to shell error codes
+// Why not? Confir to shell error codes:
 //
 // [your answer here]
 //
@@ -107,14 +125,6 @@ int main()
 //
 // First build it with debug symbols (`-g`).
 // > clang -g -I /usr/local/include/ -L /usr/local/lib get_sign.c -l kleeRuntest
-//
-// We need to add the libary path so it can be dynamically loaded:
-// Depending on shell this might look different:
-//
-// Under `bash` (and `bash` like shells)
-// > export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-// Under `fish`
-// > set -x LD_LIBRARY_PATH /usr/local/lib/
 //
 // Then start `gdb`:
 // > KTEST_FILE=klee-last/test000001.ktest gdb ./a.out
