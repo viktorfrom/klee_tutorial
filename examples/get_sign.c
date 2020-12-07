@@ -30,13 +30,15 @@ int main()
 //
 // > klee get_sign.bc
 //
-// [your answer here]
+// KLEE: done: total instructions = 31
+// KLEE: done: completed paths = 3
+// KLEE: done: generated tests = 3
 //
 // B) Inspecting the output
 //
 // > ls klee-last/
 //
-// [your answer here]
+// assembly.ll  info  messages.txt  run.istats  run.stats	test000001.ktest  test000002.ktest  test000003.ktest  warnings.txt
 //
 // C) Inspecting the generated test cases
 //
