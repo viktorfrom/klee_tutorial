@@ -46,18 +46,19 @@ int main()
 //
 // What path in the code does this test represent?
 //
-// [your answer here]
+// The first if-statement, if (x == 0) return 0;
 //
 // > ktest-tool klee-last/test000002.ktest
 //
 // What path in the code does this test represent?
 //
-// [your answer here]
+// The third if-statement, else return 1;
+// 
 // > ktest-tool klee-last/test000003.ktest
 //
 // What path in the code does this test represent?
 //
-// [your answer here]
+// The second if-statement, if (x < 0) return -1;
 //
 // D) Replaying a test case
 //
