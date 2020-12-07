@@ -16,13 +16,17 @@ Under arch with `yay` installed simply:
 > yay -S z3
 ```
 
+Later, you also need to have `gdb` installed, under arch by:
+
+```shell
+> yay -S gdb
+```
 
 ## Install KLEE from source
 
-
 The instructions recommend LLVM 9, but the current master (2.2-pre) supports LLVM 11 (which is what you would have under arch as of 2020-12-07).
 
-Under arch you can simply
+Under arch you can simply:
 
 ```shell
 > git clone https://github.com/klee/klee.git
