@@ -51,7 +51,7 @@ int main()
 // What path in the code does this test represent?
 //
 // [your answer here]
-// > ktest-tool klee-last/test000002.ktest
+// > ktest-tool klee-last/test000003.ktest
 //
 // What path in the code does this test represent?
 //
