@@ -26,6 +26,10 @@ int main()
 // A) Compiling into LLVM bitcode
 // > clang -emit-llvm -c get_sign.c
 //
+// Now you can run Klee on your generated bitcode.
+//
+// > klee get_sign.bc
+//
 // [your answer here]
 //
 // B) Inspecting the output
