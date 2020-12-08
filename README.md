@@ -55,6 +55,28 @@ LLVM (http://llvm.org/):
 
 If your build fails at some point, consult the docs [building klee](https://klee.github.io/build-llvm9/).
 
+## Install KLEE from `aur` (arch linux)
+
+The `aur` package [klee](https://aur.archlinux.org/packages/klee/), installs KLEE in `/usr/bin` (binaries), `/usr/include` (C-include files), and `usr/lib` (libraries). These are the default system folders respectively, so it makes it easier to compile, link, and run the KLEE tools.
+
+```shell
+> yay -S klee
+> klee -version
+KLEE 2.2 (https://klee.github.io)
+  Build mode: Release (Asserts: ON)
+  Build revision: 5719d2803e93252e5d4613f43afc7db0d72332f1
+
+LLVM (http://llvm.org/):
+  LLVM version 11.0.0
+  Optimized build.
+  Default target: x86_64-pc-linux-gnu
+  Host CPU: skylake
+```
+
+Notice, if you have previously installed from source, but want to use the `aur` instead you should remove the source installed files found in `/usr/local/bin`, `/usr/local/include` and `/usr/local/lib` (please make sure that you only remove the KLEE related files).
+
+---
+
 ## Testing a small function
 
 See the `examples/get_sign` folder.
