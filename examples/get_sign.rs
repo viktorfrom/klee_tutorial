@@ -148,7 +148,7 @@ mod ll {
 //
 // > KTEST_FILE=klee-last/test000001.ktest gdb a.out
 //
-// (gdb) get_sign
+// (gdb) break get_sign
 // Breakpoint 1 at 0x1165: file examples/get_sign.rs, line 9.
 //
 // Now run the code in the debugger. What path was triggered.
