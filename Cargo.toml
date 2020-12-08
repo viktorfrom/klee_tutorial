@@ -4,20 +4,9 @@ version = "0.1.0"
 authors = ["pln <Per Lindgren>"]
 edition = "2018"
 
-[dependencies.panic-klee]
-git = "https://gitlab.henriktjader.com/pln/panic-klee.git"
-version = "0.1.0"
-
-
-[dependencies.klee-sys]
-git = "https://gitlab.henriktjader.com/pln/klee-sys.git"
-# path = "../klee-sys"
-version = "0.1.0"
-#features = ["inline-asm"]
-
-[features] 
-klee-analysis = [ "klee-sys/klee-analysis" ]
-klee-replay = [ "klee-sys/klee-replay"]
+[dependencies.cstr_core]
+version = "0.2.2"
+default-features = false
 
 [profile.dev]
 panic = "abort"

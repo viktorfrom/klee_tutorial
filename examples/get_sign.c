@@ -126,7 +126,7 @@ int main()
 //
 // [your answer here]
 //
-// Why not? Confir to shell error codes:
+// Why not? Confer to shell error codes:
 //
 // [your answer here]
 //

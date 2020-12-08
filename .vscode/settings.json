@@ -1,0 +1,13 @@
+{
+    "cSpell.ignoreWords": [
+        "core",
+        "cstr",
+        "datatypes",
+        "ktest",
+        "libklee",
+        "llvm",
+        "runtest",
+        "rustc",
+        "satisfiability"
+    ]
+}
