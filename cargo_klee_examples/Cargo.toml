@@ -1,0 +1,30 @@
+[package]
+name = "cargo_klee_examples"
+version = "0.1.0"
+authors = ["pln <Per Lindgren>"]
+edition = "2018"
+
+[dependencies.klee-sys]
+git = "https://gitlab.henriktjader.com/KLEE/klee-sys.git"
+version = "0.2.0"
+
+[dependencies.panic-klee]
+git = "https://gitlab.henriktjader.com/pln/panic-klee.git"
+version = "0.1.0"
+
+
+[profile.dev]
+panic = "abort"
+incremental = false # better optimization
+lto = true          # better optimization
+codegen-units = 1   # better optimization
+
+[profile.release]
+panic = "abort"
+debug = true        # better debugging
+incremental = false # better optimization
+lto = true          # better optimization
+codegen-units = 1   # better optimization
+
+[features]
+klee-analysis = ["klee-sys/klee-analysis"]

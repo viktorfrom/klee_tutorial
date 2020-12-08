@@ -1,6 +1,10 @@
 # KLEE tutorial
 
-Installing and testing klee.
+- Installing and testing klee.
+
+- Manual use of the KLEE tools for C and Rust programs.
+
+- Simplified usage adopting `klee-sys` and `cargo klee`.
 
 ## Dependencies
 
@@ -27,7 +31,6 @@ Under arch with `yay` installed simply:
 ### Ubuntu (like) systems
 
 > sudo apt install z3 libz3-4 libz3-cil libz3-dev libz3-java libz3-jni libz3-ocaml-de
-
 
 ## Install KLEE from source
 
@@ -106,6 +109,22 @@ Here you learn:
 - how to replay test cases for Rust programs
 
 ---
+
+## klee-sys and Cargo-klee
+
+See the `cargo-klee-examples` folder.
+
+Here you learn:
+
+- an easy way to compile and run KLEE on Rust code
+- an easy way to replay test cases for Rust programs
+
+TODO:
+
+More interesting verification problems using `cargo klee`.
+
+--
+
 
 ## Why KLEE on Rust
 
