@@ -1,4 +1,4 @@
-# Klee tutorial
+# KLEE tutorial
 
 Installing and testing klee.
 
@@ -10,17 +10,24 @@ Under the hood, klee uses a `sat` solver for First Order Logic (FOL). Klee can i
 
 So first install `z3` on your system (then klee will use that instead of the default solver).
 
+Later, you also need to have `gdb` installed, under arch by:
+
+### Arch linux:
+
 Under arch with `yay` installed simply:
 
 ```shell
 > yay -S z3
 ```
 
-Later, you also need to have `gdb` installed, under arch by:
-
 ```shell
 > yay -S gdb
 ```
+
+### Ubuntu (like) systems
+
+> sudo apt install z3 libz3-4 libz3-cil libz3-dev libz3-java libz3-jni libz3-ocaml-de
+
 
 ## Install KLEE from source
 
