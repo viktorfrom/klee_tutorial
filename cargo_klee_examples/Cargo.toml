@@ -5,7 +5,7 @@ authors = ["pln <Per Lindgren>"]
 edition = "2018"
 
 [dependencies.klee-sys]
-git = "https://gitlab.henriktjader.com/KLEE/klee-sys.git"
+git = "https://gitlab.henriktjader.com/pln/klee-sys.git"
 version = "0.2.0"
 
 [dependencies.panic-klee]
