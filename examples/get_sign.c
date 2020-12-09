@@ -69,9 +69,20 @@ int main()
 // > ls /usr/local/lib
 // klee  libkleeRuntest.so  libkleeRuntest.so.1.0
 //
+// If you installed Klee using the package manager
+// the path might be different:
+//
+// Using `aur` (arch) files are stored in the system default
+// folders, `/usr/include` and `/usr/lib`.
+//
 // If those are ok, then you can compile for replay:
 //
 // > clang -I /usr/local/include/ -L /usr/local/lib get_sign.c -l kleeRuntest
+//
+// Or just
+// > clang get_sign -l kleeRuntest
+//
+// If the `include` and `lib` paths are the system defaults.
 //
 // To replay the first test:
 //
@@ -83,6 +94,9 @@ int main()
 //
 // Under `fish`
 // > set -x LD_LIBRARY_PATH /usr/local/lib/:$LD_LIBRARY_PATH
+//
+// Once again, if using the system default system folders
+// you don't need to add anything to `LD_LIBRARY_PATH`.
 //
 // > KTEST_FILE=klee-last/test000001.ktest ./a.out
 //
@@ -115,7 +129,7 @@ int main()
 //
 // [your answer here]
 //
-// Why not? Confir to shell error codes:
+// Why not? Confer to shell error codes:
 //
 // [your answer here]
 //
@@ -126,6 +140,9 @@ int main()
 //
 // First build it with debug symbols (`-g`).
 // > clang -g -I /usr/local/include/ -L /usr/local/lib get_sign.c -l kleeRuntest
+//
+// Or if using system defaults:
+// > clang -g get_sign.c -l kleeRuntest
 //
 // Then start `gdb`:
 // > KTEST_FILE=klee-last/test000001.ktest gdb ./a.out

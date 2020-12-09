@@ -1,0 +1,18 @@
+{
+    "cSpell.ignoreWords": [
+        "cmake",
+        "core",
+        "cstr",
+        "datatypes",
+        "ktest",
+        "libklee",
+        "libz",
+        "llvm",
+        "mkdir",
+        "runtest",
+        "rustc",
+        "satisfiability",
+        "skylake",
+        "znver"
+    ]
+}
