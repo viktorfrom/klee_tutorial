@@ -118,10 +118,7 @@ Here you learn:
 
 - an easy way to compile and run KLEE on Rust code
 - an easy way to replay test cases for Rust programs
-
-TODO:
-
-More interesting verification problems using `cargo klee`.
+- an easy way to find "hard to find" errors in embedded code
 
 --
 

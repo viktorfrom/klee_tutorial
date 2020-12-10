@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["pln <Per Lindgren>"]
 edition = "2018"
 
+# [dependencies.stm32f4] 
+# version = "0.12.1"
+# features = ["stm32f401"]
+
 [dependencies.klee-sys]
 git = "https://gitlab.henriktjader.com/pln/klee-sys.git"
 version = "0.2.0"
@@ -11,6 +15,16 @@ version = "0.2.0"
 [dependencies.panic-klee]
 git = "https://gitlab.henriktjader.com/pln/panic-klee.git"
 version = "0.1.0"
+
+[dependencies.cortex-m]
+version = "0.6.1"
+
+[dependencies]
+vcell = "0.1.2"
+
+[patch.crates-io]
+cortex-m = { git = "https://github.com/perlindgren/cortex-m.git", branch = "trustit" }
+vcell = { git = "https://github.com/perlindgren/vcell.git", branch = "trustit" }
 
 
 [profile.dev]
@@ -27,4 +41,8 @@ lto = true          # better optimization
 codegen-units = 1   # better optimization
 
 [features]
-klee-analysis = ["klee-sys/klee-analysis"]
+klee-analysis = [
+    "klee-sys/klee-analysis", 
+    "cortex-m/klee-analysis",
+    "vcell/klee-analysis"
+]
