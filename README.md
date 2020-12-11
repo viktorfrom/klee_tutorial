@@ -122,8 +122,38 @@ Here you learn:
 
 ---
 
+## Related files and their locations and attributes
+
+- `vcell`: KLEE enable `vcell`
+  - version: 0.1.2
+  - git: `https://github.com/perlindgren/vcell/blob/trustit`
+  - branch: `trustit`
+  - features: 
+    - `klee-analysis`
+      - `get` results in a new (fresh) symbolic object. 
+      - `set` is suppressed (no side effect).
+
+- `klee-sys`: low-level bindings for KLEE.
+  - version: 0.2.0
+  - git: `https://gitlab.henriktjader.com/pln/klee-sys`
+  - features:
+    - `klee-analysis`
+      - KLEE API binds to external functions
+    - `klee-replay`
+      - KLEE API `klee_make_symbolic` binds to inline assembly breakpoint. This allows a debugger to catch the halted CPU and insert test case to location of symbolic object. Other KLEE API binds to Rust `panic!`.
+
+- `cargo-klee`: `cargo` sub-command.
+  - version: 0.3.0
+  - git: `https://gitlab.henriktjader.com/pln/cargo-klee`
+
+- `panic_klee`: Binds panic handler to external `abort`
+  - version: 0.1.0
+  - git: `https://gitlab.henriktjader.com/pln/panic-klee`
+
+---
+
 ## Why KLEE on Rust
 
-Out the box, Rust provides superior memory safety and guarantees to well defined behavior. However there are cases where the Rust compiler (rustc) cannot statically (at compile time) ensure these guarantees. For such cases (e.g., division by zero, slice/array indexing etc.) Rust injects code for run-time verification that emit a `panic!` (with appropriate error message). While still being safe (the code never runs into memory unsafety or undefined behavior) this limits the reliability (availability) of the system (as its very hard to recover from a `panic!`.) In practice, the developer would typically reboot/reset the system (and store some error code/trace for post-mortem analysis).
+Out the box, Rust provides superior memory safety and guarantees to well defined behavior. However there are cases where the Rust compiler (rustc) cannot statically (at compile time) ensure these guarantees. For such cases (e.g., division by zero, slice/array indexing etc.) Rust injects code for run-time verification that emit a `panic!` (with appropriate error message). While still being safe (the code nevhttps://github.com/perlindgren/vcell.giter runs into memory unsafety or undefined behavior) this limits the reliability (availability) of the system (as its very hard to recover from a `panic!`.) In practice, the developer would typically reboot/reset the system (and store some error code/trace for post-mortem analysis).
 
 With KLEE we can do better! We bind Rust `panic!` to KLEE `abort` (a path termination), and let. For all reachable `panic!`s, KLEE will provide a concrete test, which we can replay and address in our source code. When done, we have a proof of `panic` freedom and thus defined behavior, with huge impact to reliability (and security) of the system at hand.
