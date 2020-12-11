@@ -120,8 +120,7 @@ Here you learn:
 - an easy way to replay test cases for Rust programs
 - an easy way to find "hard to find" errors in embedded code
 
---
-
+---
 
 ## Why KLEE on Rust
 
