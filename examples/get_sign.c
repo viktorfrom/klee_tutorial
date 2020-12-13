@@ -204,6 +204,8 @@ int main()
 //
 // [your answer here]
 // (hint, mark memory region as symbolic)
+// "a" is marked as a symbolic value in Klee and is 
+// then allowed to determine valid paths in the program. 
 //
 // Explain in your own words how
 // `klee_make_symbolic(&a, sizeof(a), "a");`
@@ -212,3 +214,4 @@ int main()
 // [your answer here]
 // (hint, KTEST_FILE points to a concrete assignment
 // of the memory region)
+// "a" is replaces by the values of the test cases.
