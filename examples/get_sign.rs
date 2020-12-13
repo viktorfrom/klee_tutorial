@@ -117,6 +117,7 @@ mod ll {
 // (Hint, it is just a matter of paths.)
 //
 // [your answer here]
+//  ktest-tool target/debug/examples/klee-last/test000001.ktest
 //
 // C) Replaying your test cases.
 //
