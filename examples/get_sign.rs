@@ -138,6 +138,7 @@ mod ll {
 // > ls *.o
 //
 // [your answer here]
+// get_sign-3c78b88510be5e13.o
 //
 // Now we need to link it with the `libkleeRuntest`.
 //
@@ -156,14 +157,17 @@ mod ll {
 // Now run the code in the debugger. What path was triggered.
 //
 // [your answer here]
+// Third path which returns 1 was triggered.
 //
 // Change to test000002, what path does it trigger.
 //
 // [your answer here]
+// First path which returns 0 was triggered.
 //
 // And finally change to test000003, what path was triggered.
 //
 // [your answer here]
+// Second path which returns -1 was triggered.
 //
 // D) Remarks and conclusions.
 //
