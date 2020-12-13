@@ -46,23 +46,26 @@ int main()
 //
 // What path in the code does this test represent?
 //
+// [your answer here]
 // The first if-statement, if (x == 0) return 0;
 //
 // > ktest-tool klee-last/test000002.ktest
 //
 // What path in the code does this test represent?
 //
+// [your answer here]
 // The third if-statement, else return 1;
 // 
 // > ktest-tool klee-last/test000003.ktest
 //
 // What path in the code does this test represent?
 //
+// [your answer here]
 // The second if-statement, if (x < 0) return -1;
 //
 // D) Replaying a test case
 //
-// Fist check that includes were installed:
+// First check that includes were installed:
 // > ls /usr/local/include
 // klee
 //
@@ -112,6 +115,7 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// "0" was returned which was the expected path. (first)
 //
 // > KTEST_FILE=klee-last/test000002.ktest ./a.out
 //
@@ -120,6 +124,7 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// "1" was returned which was the expected path. (third)
 //
 // > KTEST_FILE=klee-last/test000003.ktest ./a.out
 //
@@ -128,10 +133,12 @@ int main()
 // Did the result correspond to the expected path for the test?
 //
 // [your answer here]
+// "255" was returned. (second)
 //
 // Why not? Confer to shell error codes:
 //
 // [your answer here]
+// Since 255 was returned for -1 means we got an out of range answer. 
 //
 // D) Debugging
 //
