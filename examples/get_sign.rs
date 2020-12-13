@@ -109,6 +109,7 @@ mod ll {
 // What was the generated hash.
 //
 // [your answer here]
+//  klee target/debug/examples/get_sign-3c78b88510be5e13.ll
 //
 // B) Inspecting the test cases.
 //
