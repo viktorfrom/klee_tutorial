@@ -163,6 +163,7 @@ int main()
 // What value do you get, and why?
 //
 // [your answer here]
+// $1 = 0
 //
 // Step the code
 // > (gdb) next
@@ -170,6 +171,7 @@ int main()
 // What path did it take, and why?
 //
 // [your answer here]
+// return 0; because x = 0.
 //
 // Now we can try with another test:
 //
@@ -183,6 +185,7 @@ int main()
 // Which path did it take, and why?
 //
 // [your answer here]
+// $1 = 255, third path because x = 255.
 //
 // And finally:
 //
@@ -191,6 +194,7 @@ int main()
 // Which path did it take, and why?
 //
 // [your answer here]
+// $1 = -2147483648, second path because x = -2147483648.
 //
 // E) Under the hood.
 //
