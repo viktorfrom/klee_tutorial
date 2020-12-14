@@ -68,7 +68,7 @@ fn main() {
 // What path of the program does this path trigger?
 //
 // [your answer here]
-// The third path which returns 1.
+//
 //
 // Just out of curiosity, you may test the other test cases as well...
 //
