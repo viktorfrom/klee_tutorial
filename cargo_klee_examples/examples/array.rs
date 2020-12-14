@@ -35,7 +35,7 @@ fn main() {
 // test generated in debug/dev mode (un-optimized).
 //
 // Try to explain in your own words the difference and why?
-// (Hint, even if we don't use the result `b`, Rust do optimize out the call, why?)
+// (Hint, even if we don't use the result `b`, Rust do not optimize out the call, why?)
 //
 // [your answer here]
 //
