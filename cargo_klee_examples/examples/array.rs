@@ -38,6 +38,13 @@ fn main() {
 // (Hint, even if we don't use the result `b`, Rust do optimize out the call, why?)
 //
 // [your answer here]
+// Debug: 
+// KLEE: done: generated tests = 10
+// Release: 
+// KLEE: done: generated tests = 2
+// I suppose the compiler checks the index 0 to 8 since it's the length of the array 
+// which results in 9 tests. Further, it needs to ensure index is not out of range so it also checks
+// index value 255, resulting in 10 test. Release on the other hand only checks 0 and 255?
 //
 // B) Fix the code so that you don't get an error.
 // (It should still compute the sum of the n first elements
