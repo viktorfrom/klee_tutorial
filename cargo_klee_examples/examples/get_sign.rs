@@ -53,6 +53,7 @@ fn main() {
 // Now locate the generated tests. Give the relative path to `klee-last`.
 //
 // [your answer here]
+// target/debug/examples/klee-last
 //
 // B) Replay test cases
 //
