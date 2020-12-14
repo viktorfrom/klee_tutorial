@@ -79,12 +79,10 @@ fn main() {
 // How does `klee-sys` and `cargo-klee` score on a 0..5 scale?
 //
 // [your answer here]
-// 5?
 //
 // If below 5, what could be done to improve the UX/IX?
 // 
 // [your answer here]
-// N/A
 //
 // C) Inner workings.
 //
