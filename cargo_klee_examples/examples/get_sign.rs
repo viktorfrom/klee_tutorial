@@ -79,12 +79,12 @@ fn main() {
 // How does `klee-sys` and `cargo-klee` score on a 0..5 scale?
 //
 // [your answer here]
-// 5? 
+// 4-5?
 //
 // If below 5, what could be done to improve the UX/IX?
 // 
 // [your answer here]
-// N/A
+// If it would be possible to remove flags and just run "cargo klee --example get_sign" maybe.
 //
 // C) Inner workings.
 //
@@ -96,6 +96,8 @@ fn main() {
 // What modules in `klee-sys` does this feature enable?
 //
 // [your answer here]
+// low level bindings: ll;
+// re-export functions and macros: lib_klee_analysis::*;
 //
 // Have a look at the source code of `cargo klee`.
 // (The actual sub-command is in the folder `cargo-klee`.)
@@ -104,6 +106,7 @@ fn main() {
 // Which one will it pick, and why?
 //
 // [your answer here]
+// It goes through the /target/debug/example folder and checks for the last modifed .ll-file.
 //
 // Actually this is one of the "bad seeds" in the internal design.
 // Seems there is no "stable" way of controlling/retrieving the "metadata"
