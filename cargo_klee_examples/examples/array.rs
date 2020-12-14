@@ -13,6 +13,8 @@ fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
     for i in 0..index {
         if i < arr.len() {
             acc += arr[i as usize] as u8;
+        } else {
+            break;
         }
     }
     acc
@@ -54,8 +56,7 @@ fn main() {
 // The fix should be in the function (not on the caller side).
 //
 // [Git commit "B"]
-// add "if index < arr.len() { }" around row 14
-// 
+// Add "if i < arr.len() { } else { break; }" around row 14
 //
 // C) In the example, the array is holding only zeroes.
 // Figure out a way to make the content symbolic.
