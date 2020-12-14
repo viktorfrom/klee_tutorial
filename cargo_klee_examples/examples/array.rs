@@ -48,11 +48,14 @@ fn main() {
 //
 // C) In the example, the array is holding only zeroes.
 // Figure out a way to make the content symbolic.
-// (Hint, declare as mutable, iterate and set each element symbolic)
+// (Hint, declare as mutable, iterate and set each element symbolic.)
+// (Hint2, it seems that you can set the whole array symbolic directly
+// without messing with an iterator, super!!!.)
 //
 // [Git commit "C"]
 //
 // D) Analyze the example using KLEE. Now a new (maybe unexpected) error should occur!
+// Notice, the error occurs only in `debug/dev` builds.
 //
 // Explain what caused the error.
 //

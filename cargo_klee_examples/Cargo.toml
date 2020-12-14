@@ -22,6 +22,10 @@ version = "0.6.1"
 [dependencies]
 vcell = "0.1.2"
 
+[dependencies.cstr_core]
+version = "0.2.2"
+default-features = false
+
 [patch.crates-io]
 cortex-m = { git = "https://github.com/perlindgren/cortex-m.git", branch = "trustit" }
 vcell = { git = "https://github.com/perlindgren/vcell.git", branch = "trustit" }
