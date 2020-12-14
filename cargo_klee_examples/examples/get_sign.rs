@@ -68,6 +68,7 @@ fn main() {
 // What path of the program does this path trigger?
 //
 // [your answer here]
+// The third path which returns 1.
 //
 // Just out of curiosity, you may test the other test cases as well...
 //
@@ -78,10 +79,12 @@ fn main() {
 // How does `klee-sys` and `cargo-klee` score on a 0..5 scale?
 //
 // [your answer here]
+// 5, obviously!
 //
 // If below 5, what could be done to improve the UX/IX?
-//
+// 
 // [your answer here]
+// N/A
 //
 // C) Inner workings.
 //
