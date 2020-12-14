@@ -188,7 +188,9 @@ fn main() {
 //
 // Try figure out what caused the error.
 //
-// Hint, look at the generated tests and open the `abort.err` file.
+// Hint, look at the generated tests and open the `testX.abort.err` file.
+// (Each failing test comes with a corresponding error file.)
+// 
 // The error file contains a backtrace.
 // Replay the failing test with a breakpoint set to the failing operation.
 // Print the values of `start` and `end`, when hitting the breakpoint.
@@ -201,7 +203,7 @@ fn main() {
 //
 // [your answer here]
 //
-// Why does these values cause an error debug/dev build but not in a release build.
+// Why does these values cause an error debug/dev build but not in a release build?
 //
 // [your answer here]
 //
