@@ -38,7 +38,10 @@ int main()
 //
 // > ls klee-last/
 //
-// assembly.ll  info  messages.txt  run.istats  run.stats	test000001.ktest  test000002.ktest  test000003.ktest  warnings.txt
+// [your answer here]
+//  assembly.ll  info  messages.txt  run.istats  
+//  run.stats	test000001.ktest  test000002.ktest  
+//  test000003.ktest  warnings.txt
 //
 // C) Inspecting the generated test cases
 //
