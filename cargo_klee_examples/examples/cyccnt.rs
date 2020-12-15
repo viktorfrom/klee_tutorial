@@ -167,6 +167,8 @@ fn main() {
 // What do you get, and why?
 //
 // [your answer here]
+// $1 = <optimized out> for 'start' and 'No symbol 'end' in current context',
+// most likely the compiler did not need them.
 //
 // As you should have seen, this was not particularly informative, right?
 //
