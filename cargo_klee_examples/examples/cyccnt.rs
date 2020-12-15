@@ -200,14 +200,17 @@ fn main() {
 // Value of `start`.
 //
 // [your answer here]
+// for start we get$1 = 0.
 //
 // Value of `end`
 //
 // [your answer here]
+// For end we get $2 = 0.
 //
 // Why does these values cause an error debug/dev build but not in a release build?
 //
 // [your answer here]
+// The answer will become 0 which is obviously wrong. 
 //
 // C) Fix the problem!
 //
