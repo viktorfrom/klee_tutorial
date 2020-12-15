@@ -245,6 +245,11 @@ fn main() {
 // How long time would lines 16/17 take to run to trigger the error?
 //
 // [your answer here]
+// 1. It's hard to find all diverging paths and test them manually.
+// 2. A cycle counter resulting in 0, which is not possible.
+// 3. This behaviour is removed in release mode since the calculation is redundant,
+//    however an error will be triggered in debug mode.
+// 4. (2^32)/(8*10^6) ≈ 536 seconds, a very long time to trigger the error.
 //
 // Of course this is a contrived example, and may not occur in practice.
 // But, it represents a class of problems/errors/bugs that is
