@@ -5,10 +5,12 @@
 
 extern crate cortex_m;
 extern crate panic_klee;
+use klee_sys::klee_make_symbolic;
 
 #[no_mangle]
 fn main() {
     let mut core = cortex_m::Peripherals::take().unwrap();
+    klee_make_symbolic!(&mut core, "core"); 
     // core.DCB.enable_trace();
     // core.DWT.enable_cycle_counter();
 
@@ -210,7 +212,7 @@ fn main() {
 // Why does these values cause an error debug/dev build but not in a release build?
 //
 // [your answer here]
-// The answer will become 0 which is obviously wrong. 
+// The answer will become 0 which is not possible.
 //
 // C) Fix the problem!
 //
@@ -223,6 +225,7 @@ fn main() {
 // Argue for your solution in your own words.
 //
 // [your answer here]
+// Make the core execution symbolic similar to what we did in array.rs 
 //
 // D) Learning outcomes and major takeaways.
 //
