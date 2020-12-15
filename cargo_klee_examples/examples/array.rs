@@ -10,6 +10,7 @@ use panic_klee as _;
 
 fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
     let mut acc = 0;
+    // klee_make_symbolic!(&mut acc, "acc");
     for i in 0..index {
         if i < arr.len() {
             acc += arr[i as usize] as u8;
@@ -22,7 +23,14 @@ fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
 
 #[no_mangle]
 fn main() {
-    let arr = [0u8; 8];
+    let mut arr = [0u8; 8];
+
+    for i in 0..arr.len() {
+        let mut num= 0;
+        klee_make_symbolic!(&mut num, "num");
+        arr[i] = num;
+    };
+
     let mut i: usize = 0;
     klee_make_symbolic!(&mut i, "i");
     let b = sum_first_elements(&arr, i);
