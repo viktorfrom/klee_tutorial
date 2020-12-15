@@ -8,12 +8,11 @@
 use klee_sys::klee_make_symbolic;
 use panic_klee as _;
 
-fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
+fn sum_first_elements(arr: &[u8], index: usize) -> u16 {
     let mut acc = 0;
-    // klee_make_symbolic!(&mut acc, "acc");
     for i in 0..index {
         if i < arr.len() {
-            acc += arr[i as usize] as u8;
+            acc += arr[i as usize] as u16;
         } else {
             break;
         }
@@ -74,6 +73,7 @@ fn main() {
 // without messing with an iterator, super!!!.)
 //
 // [Git commit "C"]
+//  klee_make_symbolic!(&mut arr, "arr"); on line 26.
 //
 // D) Analyze the example using KLEE. Now a new (maybe unexpected) error should occur!
 // Notice, the error occurs only in `debug/dev` builds.
@@ -81,11 +81,13 @@ fn main() {
 // Explain what caused the error.
 //
 // [your answer here]
+//  An overflow to the array caused the panic of the program.
 //
 // E) Make a sensible fix to the code.
 // Motivate your choice.
 //
 // [your answer here]
+// Increase the size of the array from u8 to u16 in order to prevent overflow.
 //
 // [Git commit "D"]
 //
@@ -96,6 +98,8 @@ fn main() {
 // Explain in your own words what Microsoft would gain by using Rust.
 //
 // [your answer here]
+//  Well, they obviously would not have to worry about memory safety but 
+//  workflow using Klee would also improve their development time and robustness.
 //
 // Explain in your own words what Microsoft would gain by using `cargo klee`
 // on their Rust code.
