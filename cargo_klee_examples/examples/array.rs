@@ -24,12 +24,13 @@ fn sum_first_elements(arr: &[u8], index: usize) -> u8 {
 #[no_mangle]
 fn main() {
     let mut arr = [0u8; 8];
+    klee_make_symbolic!(&mut arr, "arr"); // less total instructions 
 
-    for i in 0..arr.len() {
-        let mut num= 0;
-        klee_make_symbolic!(&mut num, "num");
-        arr[i] = num;
-    };
+    // for i in 0..arr.len() {
+    //     let mut num= 0;
+    //     klee_make_symbolic!(&mut num, "num");
+    //     arr[i] = num;
+    // };
 
     let mut i: usize = 0;
     klee_make_symbolic!(&mut i, "i");
