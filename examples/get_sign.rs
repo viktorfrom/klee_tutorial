@@ -118,6 +118,8 @@ mod ll {
 //
 // [your answer here]
 //  ktest-tool target/debug/examples/klee-last/test000001.ktest
+//  ktest-tool target/debug/examples/klee-last/test000002.ktest
+//  ktest-tool target/debug/examples/klee-last/test000003.ktest
 //
 // C) Replaying your test cases.
 //
