@@ -55,7 +55,8 @@ fn main() {
 // Release: 
 // KLEE: done: generated tests = 2
 // Debug performs 9 tests for the indices 0 to 8 of the array and a final one to make sure it does not
-// overflow at index 255. Release mode checks 0 and 255.
+// overflow at index 255. Release mode checks 0 and 255. The result "b" is not optimized out since it
+// contains symbolic values. 
 //
 // B) Fix the code so that you don't get an error.
 // (It should still compute the sum of the n first elements
