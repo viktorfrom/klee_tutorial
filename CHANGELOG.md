@@ -2,6 +2,8 @@
 
 Most recent changes:
 
+- 2020-12-20 Home exams: Initial commit.
+
 - 2020-12-14 Some clarifications:
 
   - In `array.rs`, missing `not` in "(Hint, even if we don't use the result `b`, Rust do not optimize out the call, why?)"
