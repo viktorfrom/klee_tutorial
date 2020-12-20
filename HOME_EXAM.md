@@ -176,6 +176,6 @@ In this part of the course, we have covered.
 
 - Energy Consumption is roughly proportional to the supply voltage (static leakage/dissipation), and exponential to the frequency (dynamic/switching activity dissipation). In the case of embedded systems, low-power modes allow parts of the system to be powered down while retaining sufficient functionality to wake on external (and/or internal) events. In sleep mode, both static and dynamic power dissipation is minimized typically to the order of uAmp (in comparison to mAmp in run mode).  
 
-   Rust RTFM adopts an event driven approach allowing the system to automatically sleep in case no further tasks are eligible for scheduling. Moreover, leveraging on the zero-cost abstractions in Rust and the guarantees provided by the analysis framework, we do not need to sacrifice correctness/robustness and reliability in order to obtain highly efficient executables.
+   Rust RTIC adopts an event driven approach allowing the system to automatically sleep in case no further tasks are eligible for scheduling. Moreover, leveraging on the zero-cost abstractions in Rust and the guarantees provided by the analysis framework, we do not need to sacrifice correctness/robustness and reliability in order to obtain highly efficient executables.
 
 Robust and Energy Efficient Real-Time Systems for real, This is the Way!
