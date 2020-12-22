@@ -1,4 +1,7 @@
 mod common;
+mod srp_analysis;
+
+use srp_analysis::*;
 use common::*;
 
 fn main() {
@@ -63,6 +66,9 @@ fn main() {
             }],
         },
     };
+
+    // let test = blocking_time(t1);
+    // println!("test {:#?}", test);
 
     // builds a vector of tasks t1, t2, t3
     let tasks: Tasks = vec![t1, t2, t3];
