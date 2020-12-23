@@ -23,25 +23,26 @@ pub fn response_time(task: &Task) -> f32 {
 }
 
 pub fn blocking_time(task: &Task) -> f32 {
-    // println!("task {:#?}", task);
     let mut blocking_time = wcet(&task);
-
     let inner_traces = inner_trace(&task.trace.inner);
-    // println!("inner_trace = {:#?}", inner_traces);
+    let trace_blocking = trace_blocking(&inner_traces);
+
+    blocking_time += trace_blocking;
+    return blocking_time;
+}
+
+fn trace_blocking(inner_traces: &Vec<Trace>) -> f32 {
+    let mut trace_blocking = 0.0;
 
     for trace in inner_traces {
         let trace_wcet = trace.end as f32 - trace.start as f32;
-        let mut trace_blocking = 0.0;
 
         if trace_wcet > trace_blocking {
             trace_blocking = trace_wcet;
         }
-
-        blocking_time += trace_blocking;
     }
 
-    // println!("blocking_time = {:#?}", blocking_time);
-    return blocking_time;
+    return trace_blocking 
 }
 
 /// Retrives the inner traces of a task
