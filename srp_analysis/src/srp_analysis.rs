@@ -6,22 +6,28 @@ pub fn response_time(blocking_time: i32, wcet: i32, preemption: i32) -> i32 {
 }
 
 pub fn blocking_time(task: Task) -> u32 {
-    println!("task {:#?}", task);
+    // println!("task {:#?}", task);
     let mut blocking_time = task.trace.end - task.trace.start;
     
     let inner_traces = inner_trace(task.trace.inner);
     // println!("inner_trace = {:#?}", inner_traces);
 
     for trace in inner_traces {
-        let trace_blocking = trace.end - trace.start;
-        if trace_blocking > blocking_time {
-            blocking_time = trace_blocking;
+        let trace_wcet = trace.end - trace.start;
+        let mut trace_blocking = 0;
+
+        if trace_wcet > trace_blocking {
+            trace_blocking = trace_wcet;
+
         }
+
+        blocking_time += trace_blocking;
     }
 
-    println!("blocking_time = {:#?}", blocking_time);
+    // println!("blocking_time = {:#?}", blocking_time);
     return blocking_time;
 }
+
 
 /// Retrives the inner traces of a task
 pub fn inner_trace(trace: Vec<Trace>) -> Vec<Trace> {
