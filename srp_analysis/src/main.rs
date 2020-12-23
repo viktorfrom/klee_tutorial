@@ -67,7 +67,7 @@ fn main() {
         },
     };
 
-    let task = blocking_time(t3.clone());
+    let task = blocking_time(&t3.clone());
     println!("blocking_time {:#?}", task);
 
     // builds a vector of tasks t1, t2, t3
