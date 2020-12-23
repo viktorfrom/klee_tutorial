@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 // common data structures
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Task {
     pub id: String,
     pub prio: u8,
@@ -11,8 +11,7 @@ pub struct Task {
     pub trace: Trace,
 }
 
-//#[derive(Debug, Clone)]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Trace {
     pub id: String,
     pub start: u32,
