@@ -67,19 +67,16 @@ fn main() {
         },
     };
 
-    let task = blocking_time(&t3.clone());
-    println!("blocking_time {:#?}", task);
-
     // builds a vector of tasks t1, t2, t3
     let tasks: Tasks = vec![t1, t2, t3];
 
-    let load_factor = total_load_factor(tasks.clone());
-    println!("load_factor = {:#?}", load_factor);
-
     // println!("tasks {:?}", &tasks);
-    // println!("tot_util {}", tot_util(&tasks));
+    println!("tot_util {}", tot_util(&tasks));
 
     let (ip, tr) = pre_analysis(&tasks);
-    println!("ip: {:?}", ip);
-    println!("tr: {:?}", tr);
+    // println!("ip: {:?}", ip);
+    // println!("tr: {:?}", tr);
+
+    let task = blocking_time(&tasks[2], &tasks, &tr);
+    println!("blocking_time {:#?}", task);
 }
