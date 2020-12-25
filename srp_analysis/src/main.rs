@@ -71,12 +71,12 @@ fn main() {
     let tasks: Tasks = vec![t1, t2, t3];
 
     // println!("tasks {:?}", &tasks);
-    println!("tot_util {}", tot_util(&tasks));
+    // println!("tot_util {}", tot_util(&tasks));
 
     let (ip, tr) = pre_analysis(&tasks);
     // println!("ip: {:?}", ip);
     // println!("tr: {:?}", tr);
 
-    let task = blocking_time(&tasks[2], &tasks, &tr);
-    println!("blocking_time {:#?}", task);
+    let blocking_time = blocking_time(&tasks[1], &tasks, &ip, &tr);
+    println!("blocking_time {:#?}", blocking_time);
 }

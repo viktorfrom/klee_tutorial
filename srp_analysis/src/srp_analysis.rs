@@ -21,12 +21,22 @@ pub fn wcet(task: &Task) -> f32 {
     return task.trace.end as f32 - task.trace.start as f32;
 }
 
-pub fn response_time(task: &Task, tasks: &Vec<Task>, tr: &HashMap<String, HashSet<String>>) -> f32 {
-    return blocking_time(&task, tasks, tr) + wcet(&task) + preemption(&task);
+pub fn response_time(
+    task: &Task,
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+) -> f32 {
+    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task);
 }
 
-pub fn blocking_time(task: &Task, tasks: &Vec<Task>, tr: &HashMap<String, HashSet<String>>) -> f32 {
-    let mut blocking_time = 0.0;
+pub fn blocking_time(
+    task: &Task,
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+) -> f32 {
+    let mut blocking_time: f32 = 0.0;
     let mut resources = &HashSet::new();
 
     // Retrieve resources used by the task
@@ -35,10 +45,15 @@ pub fn blocking_time(task: &Task, tasks: &Vec<Task>, tr: &HashMap<String, HashSe
         None => (),
     }
 
+    // if the prio of t is lower than the task prio and t holds a resource with a 
+    // resource prio >= task prio. then get max critical section of the resource. 
     for r in resources {
         for t in tasks {
-            if (t.prio < task.prio) {
-                blocking_time = wcet(t);
+            if (t.prio < task.prio) && ip.get(r).unwrap() >= &task.prio {
+                let wcet_resource = wcet_resource(&task.trace, r);
+                if wcet_resource > blocking_time {
+                    blocking_time = wcet_resource;
+                }
             }
         }
     }
@@ -46,29 +61,17 @@ pub fn blocking_time(task: &Task, tasks: &Vec<Task>, tr: &HashMap<String, HashSe
     return blocking_time;
 }
 
-// fn trace_blocking(inner_traces: &Vec<Trace>) -> f32 {
-//     let mut trace_blocking = 0.0;
+fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
+    let mut wcet: f32 = 0.0;
+    println!("trace = {:#?}", trace);
+    if trace.id == resource {
+        wcet = trace.end as f32 - trace.start as f32;
+    } else {
+        wcet = wcet_resource(&trace.inner[0], resource);
+    }
 
-//     for trace in inner_traces {
-//         let trace_wcet = trace.end as f32 - trace.start as f32;
-
-//         if trace_wcet > trace_blocking {
-//             trace_blocking = trace_wcet;
-//         }
-//     }
-
-//     return trace_blocking
-// }
-
-// pub fn inner_trace(traces: &Vec<Trace>) -> Vec<Trace> {
-//     let mut inner_traces: Vec<Trace> = [].to_vec();
-//     for trace in traces {
-//         inner_traces.push(trace.clone());
-//         inner_traces.extend(inner_trace(&trace.inner));
-//     }
-
-//     return inner_traces;
-// }
+    return wcet;
+}
 
 pub fn preemption(task: &Task) -> f32 {
     return 0.0;
