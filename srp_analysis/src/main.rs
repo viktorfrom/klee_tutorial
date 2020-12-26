@@ -77,6 +77,9 @@ fn main() {
     // println!("ip: {:?}", ip);
     // println!("tr: {:?}", tr);
 
-    let blocking_time = blocking_time(&tasks[1], &tasks, &ip, &tr);
-    println!("blocking_time {:#?}", blocking_time);
+    // let blocking_time = blocking_time(&tasks[1], &tasks, &ip, &tr);
+    // println!("blocking_time {:#?}", blocking_time);
+
+    let preemption = preemption(&tasks[1], &tasks, &ip, &tr);
+    println!("preemption {:#?}", preemption);
 }

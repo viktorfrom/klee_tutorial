@@ -27,7 +27,7 @@ pub fn response_time(
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
 ) -> f32 {
-    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task);
+    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task, tasks, ip, tr);
 }
 
 pub fn blocking_time(
@@ -45,8 +45,8 @@ pub fn blocking_time(
         None => (),
     }
 
-    // if the prio of t is lower than the task prio and t holds a resource with a 
-    // resource prio >= task prio. then get max critical section of the resource. 
+    // if the prio of t is lower than the task prio and t holds a resource with a
+    // resource prio >= task prio. then get max critical section of the resource.
     for r in resources {
         for t in tasks {
             if (t.prio < task.prio) && ip.get(r).unwrap() >= &task.prio {
@@ -78,6 +78,19 @@ fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
     return wcet;
 }
 
-pub fn preemption(task: &Task) -> f32 {
-    return 0.0;
+pub fn preemption(
+    task: &Task,
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+) -> f32 {
+    let mut preemption = 0.0;
+
+    for t in tasks {
+        if t.prio > task.prio {
+            preemption += wcet(task) * (task.deadline as f32 / t.inter_arrival as f32).ceil();
+        }
+    }
+
+    return preemption;
 }
