@@ -80,6 +80,11 @@ fn main() {
     // let blocking_time = blocking_time(&tasks[1], &tasks, &ip, &tr);
     // println!("blocking_time {:#?}", blocking_time);
 
-    let preemption = preemption(&tasks[1], &tasks, &ip, &tr);
-    println!("preemption {:#?}", preemption);
+    // let preemption = preemption(&tasks[1], &tasks, &ip, &tr);
+    // println!("preemption {:#?}", preemption);
+
+    let srp_analysis = srp_analysis(&tasks, &ip, &tr);
+    for s in srp_analysis {
+        println!("s = {:#?}", s);
+    }
 }

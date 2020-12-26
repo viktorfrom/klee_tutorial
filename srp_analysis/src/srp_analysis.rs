@@ -27,7 +27,7 @@ pub fn response_time(
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
 ) -> f32 {
-    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task, tasks, ip, tr);
+    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task, tasks, ip);
 }
 
 pub fn blocking_time(
@@ -78,12 +78,7 @@ fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
     return wcet;
 }
 
-pub fn preemption(
-    task: &Task,
-    tasks: &Vec<Task>,
-    ip: &HashMap<String, u8>,
-    tr: &HashMap<String, HashSet<String>>,
-) -> f32 {
+pub fn preemption(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
     let mut preemption = 0.0;
 
     for t in tasks {
@@ -93,4 +88,24 @@ pub fn preemption(
     }
 
     return preemption;
+}
+
+pub fn srp_analysis(
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+) -> Vec<(String, f32, f32, f32, f32)> {
+    let mut v = Vec::new();
+
+    for t in tasks {
+        v.push((
+            t.id.to_string(),
+            response_time(t, tasks, ip, tr),
+            wcet(t),
+            blocking_time(t, tasks, ip, tr),
+            preemption(t, tasks, ip),
+        ))
+    }
+
+    return v;
 }
