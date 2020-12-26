@@ -63,11 +63,16 @@ pub fn blocking_time(
 
 fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
     let mut wcet: f32 = 0.0;
-    println!("trace = {:#?}", trace);
+
     if trace.id == resource {
         wcet = trace.end as f32 - trace.start as f32;
-    } else {
-        wcet = wcet_resource(&trace.inner[0], resource);
+    } else if trace.inner.len() != 0 {
+        for i in &trace.inner {
+            let temp_wcet = wcet_resource(&i, resource);
+            if temp_wcet > wcet {
+                wcet = temp_wcet;
+            }
+        }
     }
 
     return wcet;
