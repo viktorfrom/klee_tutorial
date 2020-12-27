@@ -83,7 +83,7 @@ fn main() {
     // let preemption = preemption(&tasks[1], &tasks, &ip, &tr);
     // println!("preemption {:#?}", preemption);
 
-    let srp_analysis = srp_analysis(&tasks, &ip, &tr);
+    let srp_analysis = srp_analysis(&tasks, &ip, &tr, false);
     for s in srp_analysis {
         println!("s = {:#?}", s);
     }

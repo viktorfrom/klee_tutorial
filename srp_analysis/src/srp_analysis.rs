@@ -26,8 +26,11 @@ pub fn response_time(
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
+    approx: bool,
 ) -> f32 {
-    return blocking_time(&task, tasks, ip, tr) + wcet(&task) + preemption(&task, tasks, ip);
+    return blocking_time(&task, tasks, ip, tr)
+        + wcet(&task)
+        + preemption(&task, tasks, ip, tr, approx);
 }
 
 pub fn blocking_time(
@@ -77,8 +80,25 @@ fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
 
     return wcet;
 }
+pub fn preemption(
+    task: &Task,
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+    approx: bool,
+) -> f32 {
+    let mut preemption = 0.0;
 
-pub fn preemption(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
+    if approx {
+        preemption = preemption_approx(task, tasks, ip);
+    } else {
+        preemption = preemption_exact(task, tasks, ip, tr);
+    }
+
+    return preemption;
+}
+
+pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
     let mut preemption = 0.0;
 
     for t in tasks {
@@ -90,20 +110,52 @@ pub fn preemption(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f
     return preemption;
 }
 
+pub fn preemption_exact(
+    task: &Task,
+    tasks: &Vec<Task>,
+    ip: &HashMap<String, u8>,
+    tr: &HashMap<String, HashSet<String>>,
+) -> f32 {
+    let mut preemption = 0.0;
+
+    for t in tasks {
+        if t.prio > task.prio {
+            let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
+            preemption = response_time_rec(task, t, busy_period, 0.0);
+        }
+    }
+
+    return preemption;
+}
+
+pub fn response_time_rec(task: &Task, t: &Task, mut busy_period: f32, mut curr: f32) -> f32 {
+    if (curr - busy_period) > task.deadline as f32 {
+        panic!("task non-schedulable: deadline miss!")
+    } else {
+        if curr == busy_period {
+            return busy_period;
+        } else {
+            let curr = busy_period + (curr / t.inter_arrival as f32).ceil() * wcet(task);
+            return busy_period + response_time_rec(task, t, busy_period, curr);
+        }
+    }
+}
+
 pub fn srp_analysis(
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
+    approx: bool,
 ) -> Vec<(String, f32, f32, f32, f32)> {
     let mut v = Vec::new();
 
     for t in tasks {
         v.push((
             t.id.to_string(),
-            response_time(t, tasks, ip, tr),
+            response_time(t, tasks, ip, tr, approx),
             wcet(t),
             blocking_time(t, tasks, ip, tr),
-            preemption(t, tasks, ip),
+            preemption(t, tasks, ip, tr, approx),
         ))
     }
 
