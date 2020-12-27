@@ -121,7 +121,7 @@ pub fn preemption_exact(
     for t in tasks {
         if t.prio > task.prio {
             let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
-            preemption = response_time_rec(task, t, busy_period, 0.0);
+            preemption += response_time_rec(task, t, busy_period, 0.0);
         }
     }
 
