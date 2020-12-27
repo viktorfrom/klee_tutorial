@@ -135,8 +135,8 @@ pub fn response_time_rec(task: &Task, t: &Task, mut busy_period: f32, mut curr: 
         if curr == busy_period {
             return busy_period;
         } else {
-            let curr = busy_period + (curr / t.inter_arrival as f32).ceil() * wcet(task);
-            return busy_period + response_time_rec(task, t, busy_period, curr);
+            let curr = busy_period + (curr / t.inter_arrival as f32).ceil() * wcet(t);
+            return response_time_rec(task, t, busy_period, curr);
         }
     }
 }
