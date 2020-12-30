@@ -121,22 +121,23 @@ pub fn preemption_exact(
     for t in tasks {
         if t.prio > task.prio {
             let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
-            preemption += response_time_rec(task, t, busy_period, 0.0);
+            preemption += response_time_rec(task, t, busy_period, busy_period, 0.0);
         }
     }
 
     return preemption;
 }
 
-pub fn response_time_rec(task: &Task, t: &Task, busy_period: f32, mut curr: f32) -> f32 {
+pub fn response_time_rec(task: &Task, t: &Task, busy_period: f32, mut prev: f32, mut curr: f32) -> f32 {
     if (curr - busy_period) > task.deadline as f32 {
         panic!("task non-schedulable: deadline miss!")
     } else {
-        if curr == busy_period {
+        if curr == prev {
             return curr;
         } else {
+            let prev = curr;
             let curr = busy_period + (curr / t.inter_arrival as f32).ceil() * wcet(t);
-            return response_time_rec(task, t, busy_period, curr);
+            return response_time_rec(task, t, busy_period, prev, curr);
         }
     }
 }

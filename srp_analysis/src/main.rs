@@ -70,21 +70,21 @@ fn main() {
     // builds a vector of tasks t1, t2, t3
     let tasks: Tasks = vec![t1, t2, t3];
 
-    // println!("tasks {:?}", &tasks);
-    // println!("tot_util {}", tot_util(&tasks));
+    println!("tasks {:?}", &tasks);
+    println!("tot_util {}", tot_util(&tasks));
 
     let (ip, tr) = pre_analysis(&tasks);
-    // println!("ip: {:?}", ip);
-    // println!("tr: {:?}", tr);
+    println!("ip: {:?}", ip);
+    println!("tr: {:?}", tr);
 
-    // let blocking_time = blocking_time(&tasks[1], &tasks, &ip, &tr);
-    // println!("blocking_time {:#?}", blocking_time);
-
-    // let preemption = preemption(&tasks[1], &tasks, &ip, &tr);
-    // println!("preemption {:#?}", preemption);
-
-    let srp_analysis = srp_analysis(&tasks, &ip, &tr, false);
-    for s in srp_analysis {
-        println!("s = {:#?}", s);
+    let approx = srp_analysis(&tasks, &ip, &tr, true);
+    for task in approx {
+        println!("approx = {:#?}", task);
     }
+
+    let exact = srp_analysis(&tasks, &ip, &tr, false);
+    for task in exact {
+        println!("exact = {:#?}", task);
+    }
+
 }
