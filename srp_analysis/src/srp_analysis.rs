@@ -17,10 +17,12 @@ pub fn load_factor(task: &Task) -> f32 {
     return wcet(&task) / task.inter_arrival as f32;
 }
 
+/// Returns worst case execution time of a task
 pub fn wcet(task: &Task) -> f32 {
     return task.trace.end as f32 - task.trace.start as f32;
 }
 
+/// Returns the response time of a task
 pub fn response_time(
     task: &Task,
     tasks: &Vec<Task>,
@@ -33,6 +35,7 @@ pub fn response_time(
         + preemption(&task, tasks, ip, tr, approx);
 }
 
+/// Returns the blocking time of a task
 pub fn blocking_time(
     task: &Task,
     tasks: &Vec<Task>,
@@ -64,6 +67,7 @@ pub fn blocking_time(
     return blocking_time;
 }
 
+/// Returns the worst case execution time of a trace
 fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
     let mut wcet: f32 = 0.0;
 
@@ -80,6 +84,8 @@ fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
 
     return wcet;
 }
+
+/// Returns either the approx preemption time or the exact preemption time of a task
 pub fn preemption(
     task: &Task,
     tasks: &Vec<Task>,
@@ -98,6 +104,7 @@ pub fn preemption(
     return preemption;
 }
 
+/// Returns approx preemption time
 pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
     let mut preemption = 0.0;
 
@@ -110,6 +117,7 @@ pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8
     return preemption;
 }
 
+/// Returns exact preemption time
 pub fn preemption_exact(
     task: &Task,
     tasks: &Vec<Task>,
@@ -128,7 +136,14 @@ pub fn preemption_exact(
     return preemption;
 }
 
-pub fn response_time_rec(task: &Task, t: &Task, busy_period: f32, mut prev: f32, mut curr: f32) -> f32 {
+/// Recursive helper function of exact preemption, eq. 7.22 in Hard Real-Time Computing Systems.
+pub fn response_time_rec(
+    task: &Task,
+    t: &Task,
+    busy_period: f32,
+    mut prev: f32,
+    mut curr: f32,
+) -> f32 {
     if (curr - busy_period) > task.deadline as f32 {
         panic!("task non-schedulable: deadline miss!")
     } else {
@@ -142,6 +157,7 @@ pub fn response_time_rec(task: &Task, t: &Task, busy_period: f32, mut prev: f32,
     }
 }
 
+/// Returns a compiled analysis of the system
 pub fn srp_analysis(
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
