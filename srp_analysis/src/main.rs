@@ -78,13 +78,8 @@ fn main() {
     println!("tr: {:?}", tr);
 
     let approx = srp_analysis(&tasks, &ip, &tr, true);
-    for task in approx {
-        println!("approx = {:#?}", task);
-    }
+    println!("approx = {:#?}", approx);
 
     let exact = srp_analysis(&tasks, &ip, &tr, false);
-    for task in exact {
-        println!("exact = {:#?}", task);
-    }
-
+    println!("exact = {:#?}", exact);
 }

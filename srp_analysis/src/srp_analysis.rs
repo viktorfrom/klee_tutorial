@@ -126,15 +126,20 @@ pub fn preemption_exact(
     tr: &HashMap<String, HashSet<String>>,
 ) -> f32 {
     let mut preemption = 0.0;
+    let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
 
     for t in tasks {
         if t.prio > task.prio {
-            let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
             preemption += response_time_rec(task, t, busy_period, busy_period, 0.0);
+            println!("task = {:#?}, preemption = {:#?}", task.id, preemption - busy_period);
         }
     }
 
-    return preemption;
+    if preemption > 0.0 {
+        return preemption - busy_period;
+    } else {
+        return preemption;
+    }
 }
 
 /// Recursive helper function of exact preemption, eq. 7.22 in Hard Real-Time Computing Systems.
