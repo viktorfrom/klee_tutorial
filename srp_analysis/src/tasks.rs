@@ -66,5 +66,5 @@ pub fn tasks() -> Vec<Task> {
     // builds a vector of tasks t1, t2, t3
     let tasks: Tasks = vec![t1, t2, t3];
 
-    return tasks
+    return tasks;
 }
