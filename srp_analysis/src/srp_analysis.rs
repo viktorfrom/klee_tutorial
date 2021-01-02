@@ -1,4 +1,5 @@
 use crate::common::*;
+use crate::tasks::*;
 use std::collections::{HashMap, HashSet};
 
 /// Returns the total load factor of the CPU
@@ -13,17 +14,17 @@ pub fn tot_util(tasks: &Vec<Task>) -> f32 {
 }
 
 /// Returns the load factor of a single task
-pub fn load_factor(task: &Task) -> f32 {
+fn load_factor(task: &Task) -> f32 {
     return wcet(&task) / task.inter_arrival as f32;
 }
 
 /// Returns worst case execution time of a task
-pub fn wcet(task: &Task) -> f32 {
+fn wcet(task: &Task) -> f32 {
     return task.trace.end as f32 - task.trace.start as f32;
 }
 
 /// Returns the response time of a task
-pub fn response_time(
+fn response_time(
     task: &Task,
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
@@ -36,7 +37,7 @@ pub fn response_time(
 }
 
 /// Returns the blocking time of a task
-pub fn blocking_time(
+fn blocking_time(
     task: &Task,
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
@@ -89,7 +90,7 @@ fn wcet_resource(trace: &Trace, resource: &str) -> f32 {
 }
 
 /// Returns either the approx preemption time or the exact preemption time of a task
-pub fn preemption(
+fn preemption(
     task: &Task,
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
@@ -109,7 +110,7 @@ pub fn preemption(
 }
 
 /// Returns approx preemption time
-pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
+fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
     let mut preemption = 0.0;
 
     for t in tasks {
@@ -123,7 +124,7 @@ pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8
 
 /// Returns exact preemption time, based on the response time recurrence eq.
 /// 7.22 in Hard Real-Time Computing Systems.
-pub fn preemption_exact(
+fn preemption_exact(
     task: &Task,
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
@@ -171,4 +172,36 @@ pub fn srp_analysis(
     }
 
     return v;
+}
+
+#[cfg(test)]
+mod parse_tests {
+    use super::*;
+
+    #[test]
+    fn test_blocking() {
+        let tasks = tasks();
+        let (ip, tr) = pre_analysis(&tasks);
+        let blocking_time1 = blocking_time(&tasks[0], &tasks, &ip, &tr);
+        assert_eq!(blocking_time1, 0.0);
+        let blocking_time2 = blocking_time(&tasks[1], &tasks, &ip, &tr);
+        assert_eq!(blocking_time2, 0.0);
+        let blocking_time3 = blocking_time(&tasks[2], &tasks, &ip, &tr);
+        assert_eq!(blocking_time3, 4.0);
+    }
+
+    #[test]
+    fn test_preemption() {
+        let tasks = tasks();
+        let (ip, tr) = pre_analysis(&tasks);
+        let exact = srp_analysis(&tasks, &ip, &tr, false);
+        assert_eq!(exact[0].4, 90.0);
+        assert_eq!(exact[1].4, 60.0);
+        assert_eq!(exact[2].4, 0.0);
+
+        let approx = srp_analysis(&tasks, &ip, &tr, true);
+        assert_eq!(approx[0].4, 30.0);
+        assert_eq!(approx[1].4, 120.0);
+        assert_eq!(approx[2].4, 0.0);
+    }
 }
