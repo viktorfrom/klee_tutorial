@@ -99,7 +99,8 @@ pub fn preemption(
     if approx {
         preemption = preemption_approx(task, tasks, ip);
     } else {
-        preemption = preemption_exact(task, tasks, ip, tr);
+        let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
+        preemption = preemption_exact(task, tasks, ip, tr, busy_period, busy_period);
     }
 
     return preemption;
@@ -118,47 +119,32 @@ pub fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8
     return preemption;
 }
 
-/// Returns exact preemption time
+/// Returns exact preemption time, based on the response time recurrence eq.
+/// 7.22 in Hard Real-Time Computing Systems.
 pub fn preemption_exact(
     task: &Task,
     tasks: &Vec<Task>,
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
-) -> f32 {
-    let mut preemption = 0.0;
-    let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
-
-    for t in tasks {
-        if t.prio > task.prio {
-            preemption += response_time_rec(task, t, busy_period, busy_period, 0.0);
-            println!("task = {:#?}, preemption = {:#?}", task.id, preemption - busy_period);
-        }
-    }
-
-    if preemption > 0.0 {
-        return preemption - busy_period;
-    } else {
-        return preemption;
-    }
-}
-
-/// Recursive helper function of exact preemption, eq. 7.22 in Hard Real-Time Computing Systems.
-pub fn response_time_rec(
-    task: &Task,
-    t: &Task,
     busy_period: f32,
     mut prev: f32,
-    mut curr: f32,
 ) -> f32 {
-    if (curr - busy_period) > task.deadline as f32 {
+    let mut curr = 0.0;
+
+    if busy_period > task.deadline as f32 {
         panic!("task non-schedulable: deadline miss!")
     } else {
+        curr += busy_period;
+        for t in tasks {
+            if t.prio > task.prio {
+                let preemption = (prev / t.inter_arrival as f32).ceil() * wcet(t);
+                curr += preemption;
+            }
+        }
         if curr == prev {
-            return curr;
+            return curr - busy_period;
         } else {
-            let prev = curr;
-            let curr = busy_period + (curr / t.inter_arrival as f32).ceil() * wcet(t);
-            return response_time_rec(task, t, busy_period, prev, curr);
+            preemption_exact(task, tasks, ip, tr, busy_period, curr)
         }
     }
 }
