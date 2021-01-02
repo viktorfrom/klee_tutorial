@@ -56,10 +56,12 @@ pub fn blocking_time(
     // resource prio >= task prio. then get max critical section of the resource.
     for r in resources {
         for t in tasks {
-            if t.prio < task.prio && ip.get(r).unwrap() >= &task.prio {
-                let wcet_resource = wcet_resource(&t.trace, r);
-                if wcet_resource > blocking_time {
-                    blocking_time = wcet_resource;
+            if let Some(r_prio) = ip.get(r) {
+                if t.prio < task.prio && r_prio >= &task.prio {
+                    let wcet_resource = wcet_resource(&t.trace, r);
+                    if wcet_resource > blocking_time {
+                        blocking_time = wcet_resource;
+                    }
                 }
             }
         }
