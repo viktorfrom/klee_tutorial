@@ -1,7 +1,9 @@
+
 use std::path::PathBuf;
 use structopt::StructOpt;
 use crate::common::*;
 use crate::srp_analysis::*;
+use crate::render_file::*;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "example", about = "An example of StructOpt usage.")]
@@ -39,5 +41,11 @@ pub fn cli(tasks: &Vec<Task>) {
     let exact = srp_analysis(&tasks, &ip, &tr, false);
 
     let opt = Opt::from_args();
-    println!("{:?} {:#?} {:#?}", opt, approx, exact);
+    // println!("{:?} {:#?} {:#?}", opt, approx, exact);
+    println!("{:?}", opt);
+
+    test();
+
 }
+
+
