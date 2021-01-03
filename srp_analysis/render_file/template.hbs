@@ -1,18 +1,45 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>中超联赛 {{year}}</title>
-  </head>
-  <body>
-    <h1>CSL {{year}}</h1>
-    <ul>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    </head>
+    <body>
+      <h1>SRP_Analysis {{year}}</h1>
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Task</th>
+        <th scope="col">Response Time</th>
+        <th scope="col">WCET</th>
+        <th scope="col">Blocking Time</th>
+        <th scope="col">Preemption</th>
+      </tr>
+    </thead>
+    <tbody>
     {{#each teams as |t| ~}}
       <li class="{{ranking_label @index ../teams}}">
       {{~log @index~}}
-      <b>{{t.name}}</b>: {{format t.pts ~}}
+      <tr>
+        <th scope="row">1</th>
+        <td>{{t.name}}</td>
+        <td> {{format t.pts ~}} </td>
+        <td> {{format t.pts1 ~}} </td>
+        <td> {{format t.pts2 ~}} </td>
+        <td> {{format t.pts3 ~}} </td>
+      </tr>
       </li>
     {{/each~}}
-    </ul>
+    </tbody>
+  </table>
+    <p>Total CPU load: {{engine}} data.</p>
 
-    <p>Rendered by Handlebars from {{engine}} data.</p>
   </body>
 </html>

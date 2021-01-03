@@ -9,6 +9,8 @@ use handlebars::{
     to_json, Context, Handlebars, Helper, JsonRender, Output, RenderContext, RenderError,
 };
 
+use chrono::{DateTime, NaiveDateTime, TimeZone, Utc};
+
 // define a custom helper
 fn format_helper(
     h: &Helper,
@@ -20,7 +22,7 @@ fn format_helper(
     let param = h
         .param(0)
         .ok_or(RenderError::new("Param 0 is required for format helper."))?;
-    let rendered = format!("{} pts", param.value().render());
+    let rendered = format!("{} ", param.value().render(),);
     out.write(rendered.as_ref())?;
     Ok(())
 }
@@ -57,62 +59,49 @@ fn rank_helper(
     Ok(())
 }
 
-static TYPES: &'static str = "serde_json";
-
 // define some data
 #[derive(Serialize)]
 pub struct Team {
     name: String,
-    pts: u16,
+    pts: f32,
+    pts1: f32,
+    pts2: f32,
+    pts3: f32,
 }
 
 // produce some data
 pub fn make_data() -> Map<String, Json> {
     let mut data = Map::new();
 
-    data.insert("year".to_string(), to_json("2015"));
+    let dt = chrono::offset::Utc::now();
+    data.insert("year".to_string(), to_json(dt.to_string()));
 
     let teams = vec![
         Team {
             name: "Jiangsu Suning".to_string(),
-            pts: 43u16,
+            pts: 43f32,
+            pts1: 44f32,
+            pts2: 45f32,
+            pts3: 46f32,
         },
         Team {
-            name: "Shanghai SIPG".to_string(),
-            pts: 39u16,
-        },
-        Team {
-            name: "Hebei CFFC".to_string(),
-            pts: 27u16,
-        },
-        Team {
-            name: "Guangzhou Evergrand".to_string(),
-            pts: 22u16,
-        },
-        Team {
-            name: "Shandong Luneng".to_string(),
-            pts: 12u16,
-        },
-        Team {
-            name: "Beijing Guoan".to_string(),
-            pts: 7u16,
-        },
-        Team {
-            name: "Hangzhou Greentown".to_string(),
-            pts: 7u16,
-        },
-        Team {
-            name: "Shanghai Shenhua".to_string(),
-            pts: 4u16,
+            name: "Jiangsu Suning".to_string(),
+            pts: 43f32,
+            pts1: 44f32,
+            pts2: 45f32,
+            pts3: 46f32,
         },
     ];
 
     data.insert("teams".to_string(), to_json(&teams));
-    data.insert("engine".to_string(), to_json(TYPES));
+    data.insert("engine".to_string(), to_json("test"));
     data
 }
 
-pub fn test() -> Result<(), Box<dyn Error>> {
+pub fn render_file(
+    tot_util: &f32,
+    analysis: &Vec<(String, f32, f32, f32, f32)>,
+) -> Result<(), Box<dyn Error>> {
     env_logger::init();
     let mut handlebars = Handlebars::new();
 
