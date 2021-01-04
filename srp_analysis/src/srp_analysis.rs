@@ -44,7 +44,6 @@ fn blocking_time(
     tr: &HashMap<String, HashSet<String>>,
 ) -> f32 {
     let mut blocking_time: f32 = 0.0;
-    let mut task_prio = 0;
     let mut resources = &HashSet::new();
 
     // Retrieve resources used by the task
@@ -97,10 +96,10 @@ fn preemption(
     tr: &HashMap<String, HashSet<String>>,
     approx: bool,
 ) -> f32 {
-    let mut preemption = 0.0;
+    let preemption;
 
     if approx {
-        preemption = preemption_approx(task, tasks, ip);
+        preemption = preemption_approx(task, tasks);
     } else {
         let busy_period = wcet(task) + blocking_time(task, tasks, ip, tr);
         preemption = preemption_exact(task, tasks, ip, tr, busy_period, busy_period);
@@ -110,7 +109,7 @@ fn preemption(
 }
 
 /// Returns approx preemption time
-fn preemption_approx(task: &Task, tasks: &Vec<Task>, ip: &HashMap<String, u8>) -> f32 {
+fn preemption_approx(task: &Task, tasks: &Vec<Task>) -> f32 {
     let mut preemption = 0.0;
 
     for t in tasks {
@@ -130,7 +129,7 @@ fn preemption_exact(
     ip: &HashMap<String, u8>,
     tr: &HashMap<String, HashSet<String>>,
     busy_period: f32,
-    mut prev: f32,
+    prev: f32,
 ) -> f32 {
     let mut curr = 0.0;
 
