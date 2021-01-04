@@ -40,7 +40,7 @@ pub fn make_data(
     analysis: &Vec<(String, f32, f32, f32, f32)>,
 ) -> Map<String, Json> {
     let mut data = Map::new();
-    let dt = chrono::offset::Utc::now();
+    let dt = &chrono::offset::Utc::now().to_rfc2822();
     let mut result = vec![];
 
     for i in analysis {
@@ -55,9 +55,9 @@ pub fn make_data(
         result.push(res);
     }
 
-    data.insert("date".to_string(), to_json(dt.to_string()));
+    data.insert("date".to_string(), to_json(&dt.to_string()[0..25]));
     data.insert("teams".to_string(), to_json(&result));
-    data.insert("load".to_string(), to_json(&tot_util));
+    data.insert("load".to_string(), to_json(&tot_util.to_string()));
     data
 }
 
