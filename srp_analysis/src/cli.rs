@@ -27,4 +27,22 @@ pub fn cli(tasks: &Vec<Task>) {
     }
 
     render_file(&tot_util, &analysis);
+    open_report();
+}
+
+fn open_report() {
+    match open::that("target/srp_analysis.html") {
+        Ok(exit_status) => {
+            if exit_status.success() {
+                println!("Opening file in browser");
+            } else {
+                if let Some(code) = exit_status.code() {
+                    println!("Command returned non-zero exit status {}!", code);
+                } else {
+                    println!("Command returned with unknown exit status!");
+                }
+            }
+        }
+        Err(why) => println!("Failure to execute command: {}", why),
+    }
 }

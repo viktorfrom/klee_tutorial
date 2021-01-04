@@ -4,6 +4,7 @@ extern crate handlebars;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+extern crate open;
 extern crate serde_json;
 
 mod cli;
