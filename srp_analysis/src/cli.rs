@@ -18,7 +18,7 @@ pub fn cli(tasks: &Vec<Task>) {
     let opt = Opt::from_args();
     let (ip, tr) = pre_analysis(&tasks);
     let tot_util = tot_util(&tasks);
-    let mut analysis;
+    let analysis;
 
     if opt.approx {
         analysis = srp_analysis(&tasks, &ip, &tr, true);

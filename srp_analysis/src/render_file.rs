@@ -11,7 +11,15 @@ use handlebars::{
 
 use chrono::{DateTime, NaiveDateTime, TimeZone, Utc};
 
-// define a custom helper
+#[derive(Serialize)]
+pub struct Res {
+    id: String,
+    rt: f32,
+    wcet: f32,
+    bt: f32,
+    pre: f32,
+}
+
 fn format_helper(
     h: &Helper,
     _: &Handlebars,
@@ -27,74 +35,29 @@ fn format_helper(
     Ok(())
 }
 
-// another custom helper
-fn rank_helper(
-    h: &Helper,
-    _: &Handlebars,
-    _: &Context,
-    _: &mut RenderContext,
-    out: &mut dyn Output,
-) -> Result<(), RenderError> {
-    let rank = h
-        .param(0)
-        .and_then(|ref v| v.value().as_u64())
-        .ok_or(RenderError::new(
-            "Param 0 with u64 type is required for rank helper.",
-        ))? as usize;
-    let total = h
-        .param(1)
-        .as_ref()
-        .and_then(|v| v.value().as_array())
-        .map(|arr| arr.len())
-        .ok_or(RenderError::new(
-            "Param 1 with array type is required for rank helper",
-        ))?;
-    if rank == 0 {
-        out.write("champion")?;
-    } else if rank >= total - 2 {
-        out.write("relegation")?;
-    } else if rank <= 2 {
-        out.write("acl")?;
-    }
-    Ok(())
-}
-
-// define some data
-#[derive(Serialize)]
-pub struct Team {
-    name: String,
-    pts: f32,
-    pts1: f32,
-    pts2: f32,
-    pts3: f32,
-}
-
-// produce some data
-pub fn make_data() -> Map<String, Json> {
+pub fn make_data(
+    tot_util: &f32,
+    analysis: &Vec<(String, f32, f32, f32, f32)>,
+) -> Map<String, Json> {
     let mut data = Map::new();
-
     let dt = chrono::offset::Utc::now();
-    data.insert("year".to_string(), to_json(dt.to_string()));
+    let mut result = vec![];
 
-    let teams = vec![
-        Team {
-            name: "Jiangsu Suning".to_string(),
-            pts: 43f32,
-            pts1: 44f32,
-            pts2: 45f32,
-            pts3: 46f32,
-        },
-        Team {
-            name: "Jiangsu Suning".to_string(),
-            pts: 43f32,
-            pts1: 44f32,
-            pts2: 45f32,
-            pts3: 46f32,
-        },
-    ];
+    for i in analysis {
+        let res = Res {
+            id: i.0.clone(),
+            rt: i.1.clone(),
+            wcet: i.2.clone(),
+            bt: i.3.clone(),
+            pre: i.4.clone(),
+        };
 
-    data.insert("teams".to_string(), to_json(&teams));
-    data.insert("engine".to_string(), to_json("test"));
+        result.push(res);
+    }
+
+    data.insert("date".to_string(), to_json(dt.to_string()));
+    data.insert("teams".to_string(), to_json(&result));
+    data.insert("load".to_string(), to_json(&tot_util));
     data
 }
 
@@ -104,19 +67,16 @@ pub fn render_file(
 ) -> Result<(), Box<dyn Error>> {
     env_logger::init();
     let mut handlebars = Handlebars::new();
-
     handlebars.register_helper("format", Box::new(format_helper));
-    handlebars.register_helper("ranking_label", Box::new(rank_helper));
-    // handlebars.register_helper("format", Box::new(FORMAT_HELPER));
 
-    let data = make_data();
+    let data = make_data(&tot_util, &analysis);
 
     handlebars
         .register_template_file("template", "./render_file/template.hbs")
         .unwrap();
 
-    let mut output_file = File::create("target/table.html")?;
+    let mut output_file = File::create("target/srp_analysis.html")?;
     handlebars.render_to_write("template", &data, &mut output_file)?;
-    println!("target/table.html generated");
+    println!("target/srp_analysis.html generated");
     Ok(())
 }

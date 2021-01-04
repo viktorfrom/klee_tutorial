@@ -11,11 +11,10 @@
 
     </head>
     <body>
-      <h1>SRP_Analysis {{year}}</h1>
+      <h1>SRP_Analysis {{date}}</h1>
       <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Task</th>
         <th scope="col">Response Time</th>
         <th scope="col">WCET</th>
@@ -25,21 +24,19 @@
     </thead>
     <tbody>
     {{#each teams as |t| ~}}
-      <li class="{{ranking_label @index ../teams}}">
       {{~log @index~}}
       <tr>
-        <th scope="row">1</th>
-        <td>{{t.name}}</td>
-        <td> {{format t.pts ~}} </td>
-        <td> {{format t.pts1 ~}} </td>
-        <td> {{format t.pts2 ~}} </td>
-        <td> {{format t.pts3 ~}} </td>
+        <td>{{t.id}}</td>
+        <td> {{format t.rt ~}} </td>
+        <td> {{format t.wcet ~}} </td>
+        <td> {{format t.bt ~}} </td>
+        <td> {{format t.pre ~}} </td>
       </tr>
       </li>
     {{/each~}}
     </tbody>
   </table>
-    <p>Total CPU load: {{engine}} data.</p>
+    <p>Total CPU load: {{load}}</p>
 
   </body>
 </html>
