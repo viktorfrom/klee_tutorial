@@ -65,7 +65,6 @@ pub fn render_file(
     tot_util: &f32,
     analysis: &Vec<(String, f32, f32, f32, f32)>,
 ) -> Result<(), Box<dyn Error>> {
-    env_logger::init();
     let mut handlebars = Handlebars::new();
     handlebars.register_helper("format", Box::new(format_helper));
 

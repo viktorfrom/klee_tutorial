@@ -9,7 +9,6 @@ edition = "2018"
 [dependencies]
 structopt = { version = "0.3", default-features = false }
 
-env_logger = "0.8.2"
 handlebars = "3.5.2"
 
 serde = "1.0.118"

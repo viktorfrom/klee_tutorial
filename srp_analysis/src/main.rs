@@ -1,5 +1,4 @@
 #![allow(unused_imports, dead_code)]
-extern crate env_logger;
 extern crate handlebars;
 extern crate serde;
 #[macro_use]
