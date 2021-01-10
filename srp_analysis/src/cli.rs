@@ -5,7 +5,15 @@ use std::path::PathBuf;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "srp_analysis")]
+#[structopt(
+    name = "srp_analysis",
+    about = "
+execute examples:
+cargo run -- 
+cargo run -- -a
+cargo run -- --help
+"
+)]
 struct Opt {
     #[structopt(short, long, default_value = "srp_analysis")]
     filename: String,
