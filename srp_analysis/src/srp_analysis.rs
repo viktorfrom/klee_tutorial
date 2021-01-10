@@ -114,7 +114,7 @@ fn preemption_approx(task: &Task, tasks: &Vec<Task>) -> f32 {
 
     for t in tasks {
         if t.prio > task.prio {
-            preemption += wcet(task) * (task.deadline as f32 / t.inter_arrival as f32).ceil();
+            preemption += wcet(t) * (task.deadline as f32 / t.inter_arrival as f32).ceil();
         }
     }
 
