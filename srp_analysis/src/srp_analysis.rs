@@ -20,7 +20,7 @@ fn load_factor(task: &Task) -> f32 {
 
 /// Returns worst case execution time of a task
 fn wcet(task: &Task) -> f32 {
-    return task.trace.end as f32 - task.trace.start as f32;
+    return task.trace.end.wrapping_sub(task.trace.start) as f32;
 }
 
 /// Returns the response time of a task
